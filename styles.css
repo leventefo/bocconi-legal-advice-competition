@@ -234,7 +234,7 @@ header[data-testid="stHeader"] {
     width: clamp(160px, 15vw, 280px);
     height: 120vh;
 
-    background-image: url("/app/static/roman_pillar.png");
+    background-image: url("app/static/roman_pillar.png");
     background-repeat: no-repeat;
     background-size: 100% auto;
     background-position: top center;
