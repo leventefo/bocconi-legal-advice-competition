@@ -1,0 +1,15 @@
+[theme]
+font = "Garamond"
+headingFont = "Garamond"
+codeFont = "monospace"
+[theme.sidebar]
+font = "Garamond"
+headingFont = "Garamond"
+codeFont = "monospace"
+
+[client]
+showSidebarNavigation = false
+
+
+[server]
+enableStaticServing = true
