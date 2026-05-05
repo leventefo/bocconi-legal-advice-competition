@@ -79,7 +79,7 @@ class LinePlot:
 
     def create_figure(self, fig_title, yaxis_title, xaxis_title, y_mean):
         fig = go.Figure().update_layout(template ="plotly_white", title = fig_title, title_x = 0.5, title_y = 0.94, title_font_weight = 600)
-        fig.update_layout(height = 465, width = 600)
+        fig.update_layout(autosize = True) # H465, W600
         fig.update_layout(font_family = "Georgia", font_weight = 600, font_size = 18)
         fig.update_layout(paper_bgcolor = "#FFFFFF")
         fig.update_layout(plot_bgcolor = "#FFFFFF")                                         #y_mean * 0.9, y_mean * 3
@@ -153,7 +153,7 @@ class HistPlot:
 
     def create_figure(self, fig_title, yaxis_title, xaxis_title):
         fig = make_subplots(rows = 2, shared_xaxes = True, vertical_spacing = 0.00, row_heights=[0.3,0.7]).update_layout(template ="plotly_white", title = fig_title, title_x = 0.5, title_y = 0.94, title_font_weight = 600)
-        fig.update_layout(height = 450, width = 600)
+        fig.update_layout(autosize = True)
         fig.update_layout(font_family = "Georgia", font_weight = 600, font_size = 18)
         fig.update_layout(paper_bgcolor = "#FFFFFF")
         fig.update_layout(plot_bgcolor = "#FFFFFF")
