@@ -470,3 +470,22 @@ header[data-testid="stHeader"] {
     font-size: clamp(16px, 1.1vw, 20px) !important;
     font-weight: 700 !important;
 } 
+
+
+@media (min-width: 1101px) and (max-width: 1600px) {
+    [data-testid="stMainBlockContainer"]::before,
+    [data-testid="stMainBlockContainer"]::after {
+        top: clamp(3rem, 7vh, 6rem);
+        width: clamp(135px, 11vw, 210px);
+        height: clamp(900px, 135vh, 1350px);
+    }
+
+    [data-testid="stMainBlockContainer"]::before {
+        left: clamp(-11rem, -8vw, -5rem);
+    }
+
+    [data-testid="stMainBlockContainer"]::after {
+        right: clamp(-11rem, -8vw, -5rem);
+        transform: scaleX(-1);
+    }
+}
