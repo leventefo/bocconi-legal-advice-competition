@@ -1,8 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&display=swap");
+
+:root {
+    --main-font: "EB Garamond", "Garamond", "Georgia", serif;
+    --navy: #162B52;
+    --red: #8B0000;
+}
+
+
+
+
+
+
+
 
 :is(.st-key-left_slider, .st-key-middle_slider, .st-key-right_slider, .st-key-month_slider) {
     --slider-color: #8B0000;
     --slider-text-color: #162B52;
-    --slider-font: "Garamond", serif;
+    --slider-font: var(--main-font);
 }
 
 
@@ -225,18 +239,30 @@ header[data-testid="stHeader"] {
 }
 
 /* Shared pillar styling */
+[data-testid="stMainBlockContainer"] {
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+}
+
+[data-testid="stMainBlockContainer"] > div {
+    position: relative;
+    z-index: 2;
+}
+
 [data-testid="stMainBlockContainer"]::before,
 [data-testid="stMainBlockContainer"]::after {
     content: "";
     position: absolute;
-    top: 4rem;
 
-    width: clamp(160px, 15vw, 280px);
-    height: 120vh;
+    top: clamp(2.5rem, 10vh, 6rem);
+
+    width: clamp(155px, 14vw, 305px);
+    height: clamp(950px, 145vh, 1500px);
+    background-size: 100% auto;
 
     background-image: url("app/static/roman_pillar.png");
     background-repeat: no-repeat;
-    background-size: 100% auto;
     background-position: top center;
 
     opacity: 0.55;
@@ -244,18 +270,16 @@ header[data-testid="stHeader"] {
     z-index: 1;
 }
 
-
 [data-testid="stMainBlockContainer"]::before {
-    left: -22rem;
+    left: clamp(-20rem, -25vw, -9rem);
 }
 
-
 [data-testid="stMainBlockContainer"]::after {
-    right: -22rem;
+    right: clamp(-20rem, -25vw, -9rem);
     transform: scaleX(-1);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
     [data-testid="stMainBlockContainer"]::before,
     [data-testid="stMainBlockContainer"]::after {
         display: none;
@@ -435,3 +459,14 @@ header[data-testid="stHeader"] {
     margin-bottom: 0.25rem !important;   /* smaller gap below title */
     line-height: 1.2 !important;
 }
+
+
+.st-key-nav_row button [data-testid="stMarkdownContainer"] p,
+.st-key-overview button [data-testid="stMarkdownContainer"] p,
+.st-key-model_description button [data-testid="stMarkdownContainer"] p,
+.st-key-simulation button [data-testid="stMarkdownContainer"] p,
+.st-key-download button [data-testid="stMarkdownContainer"] p {
+    font-family: var(--main-font) !important;
+    font-size: clamp(16px, 1.1vw, 20px) !important;
+    font-weight: 700 !important;
+} 
