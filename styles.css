@@ -613,3 +613,28 @@ header[data-testid="stHeader"] {
     margin-top: 0rem !important;
     margin-bottom: -0.7rem !important;
 }
+
+@media (min-width: 1500px) {
+    [data-testid="stMainBlockContainer"]::before {
+        left: clamp(-24rem, -18vw, -12rem);
+    }
+
+    [data-testid="stMainBlockContainer"]::after {
+        right: clamp(-24rem, -18vw, -12rem);
+    }
+}
+
+
+@media (min-width: 1500px) {
+    [data-testid="stElementContainer"]:has([data-testid="stMarkdownContainer"] hr) {
+        margin-bottom: -0.4rem !important;
+    }
+
+    [data-testid="stHorizontalBlock"]:has(.st-key-left_slider):has(.st-key-middle_slider):has(.st-key-right_slider) {
+        margin-top: -0.5rem !important;
+    }
+
+    .st-key-metric_slider_row {
+        margin-top: 0rem !important;
+    }
+}
