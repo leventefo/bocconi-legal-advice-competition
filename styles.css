@@ -614,7 +614,7 @@ header[data-testid="stHeader"] {
     margin-bottom: -0.7rem !important;
 }
 
-@media (min-width: 1500px) {
+@media (min-width: 1900px) {
     [data-testid="stMainBlockContainer"]::before {
         left: clamp(-24rem, -18vw, -12rem);
     }
@@ -625,7 +625,7 @@ header[data-testid="stHeader"] {
 }
 
 
-@media (min-width: 1500px) {
+@media (min-width: 1900px) {
     [data-testid="stElementContainer"]:has([data-testid="stMarkdownContainer"] hr) {
         margin-bottom: -0.4rem !important;
     }
