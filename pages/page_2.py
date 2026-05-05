@@ -299,7 +299,7 @@ def main():
 
 
     with left_col:
-        line_metric = metric_card("Maximum/Minimum", f"Maximum {round(line_maximum, 1)} ($M) attained after {round(line_maximizer, 1)} month(s).")
+        line_metric = metric_card("Maximum/Maximizer", f"Maximum {round(line_maximum, 1)} ($M) attained after {round(line_maximizer, 1)} month(s).")
 
     
     with right_col:
