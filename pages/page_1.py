@@ -63,11 +63,11 @@ def main():
         st.latex(r"""
 \begin{aligned}
 Y &: [0,\infty) \to \mathbb{R} \\
-Y(x) &= a + \left(b^{-1}qx\right)^{d-t+2}\cdot (10-j)^{-f(x-e)}
+Y(x) &= a + \left(b^{-1}qx\right)^{d-t+2}\cdot (10-j)^{-f(x-c)}
 \end{aligned}
 """)
 
-    col1, gap1, col2, = st.columns([1, 0.2, 1], vertical_alignment="center")
+    col1, gap1, col2, = st.columns([1, 0.05, 1], vertical_alignment="center")
 
     with col1:
         with st.container(key="parameter_exp"):

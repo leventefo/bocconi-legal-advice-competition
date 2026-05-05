@@ -79,13 +79,13 @@ class LinePlot:
 
     def create_figure(self, fig_title, yaxis_title, xaxis_title, y_mean):
         fig = go.Figure().update_layout(template ="plotly_white", title = fig_title, title_x = 0.5, title_y = 0.94, title_font_weight = 600)
-        fig.update_layout(height = 515, autosize = True)
+        fig.update_layout(height = 465, autosize = True)
         fig.update_layout(font_family = "Georgia", font_weight = 600, font_size = 18)
         fig.update_layout(paper_bgcolor = "#FFFFFF")
         fig.update_layout(plot_bgcolor = "#FFFFFF")                                         #y_mean * 0.9, y_mean * 3
-        fig.update_yaxes(ticksuffix = " ", title = yaxis_title, title_standoff = 20, range = [650, None], showgrid = True, showline = False, linecolor = "#FFFFFF", zeroline = False, title_font = dict(size = 20), tickfont = dict(size = 18))
+        fig.update_yaxes(ticksuffix = " ", title = yaxis_title, title_standoff = 20, range = [650, None], showgrid = True, showline = False, linecolor = "#FFFFFF", zeroline = False, title_font = dict(size = 16), tickfont = dict(size = 14))
         fig.update_layout(margin=dict(t=0, b=95, l=100, r=0))
-        fig.update_xaxes(title = xaxis_title, title_standoff = 20.25, range = [-0.5, 12], showgrid = True, showline = False, linecolor = "#FFFFFF", zeroline = False, title_font = dict(size = 20), tickfont = dict(size = 18))
+        fig.update_xaxes(title = xaxis_title, title_standoff = 20.25, range = [-0.5, 12], showgrid = True, showline = False, linecolor = "#FFFFFF", zeroline = False, title_font = dict(size = 16), tickfont = dict(size = 14))
         self.plot_data(self.x_data, self.y_data, 3, fig)
 
     def find_median_values(self, data):
@@ -153,13 +153,13 @@ class HistPlot:
 
     def create_figure(self, fig_title, yaxis_title, xaxis_title):
         fig = make_subplots(rows = 2, shared_xaxes = True, vertical_spacing = 0.00, row_heights=[0.3,0.7]).update_layout(template ="plotly_white", title = fig_title, title_x = 0.5, title_y = 0.94, title_font_weight = 600)
-        fig.update_layout(height = 500, autosize = True)
+        fig.update_layout(height = 450, autosize = True)
         fig.update_layout(font_family = "Georgia", font_weight = 600, font_size = 18)
         fig.update_layout(paper_bgcolor = "#FFFFFF")
         fig.update_layout(plot_bgcolor = "#FFFFFF")
-        fig.update_yaxes(ticksuffix = " ", title = yaxis_title, title_standoff = 20, title_font = dict(size = 20))
+        fig.update_yaxes(ticksuffix = " ", title = yaxis_title, title_standoff = 20, title_font = dict(size = 16), tickfont = dict(size = 14))
         fig.update_layout(margin=dict(t=0, b=95, l=90, r=20), showlegend = False)
-        fig.update_xaxes(title = xaxis_title, title_standoff = 18, ticklabelstandoff = 10, title_font = dict(size = 20), row = 2, col = 1)
+        fig.update_xaxes(title = xaxis_title, title_standoff = 18, ticklabelstandoff = 10, title_font = dict(size = 16), row = 2, col = 1, tickfont = dict(size = 14))
         self.plot_data(fig, self.values, self.median)
 
     def plot_data(self, fig, dataset, median):

@@ -74,7 +74,7 @@ class SingleLinePlot:
 
     def create_figure(self, fig_title, yaxis_title, xaxis_title, y_mean, y_max):
         fig = go.Figure().update_layout(template ="plotly_white", title = fig_title, title_x = 0.5, title_y = 0.94, title_font_weight = 600)
-        fig.update_layout(width = 1000, height = 500)
+        fig.update_layout(autosize = True)
         fig.update_layout(font_family = "Georgia", font_weight = 600, font_size = 18)
         fig.update_layout(paper_bgcolor = "#FFFFFF")
         fig.update_layout(plot_bgcolor = "#FFFFFF")                                         #y_mean * 0.9, y_mean * 3
