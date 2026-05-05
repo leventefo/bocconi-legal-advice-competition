@@ -632,6 +632,7 @@ header[data-testid="stHeader"] {
 
     [data-testid="stHorizontalBlock"]:has(.st-key-left_slider):has(.st-key-middle_slider):has(.st-key-right_slider) {
         margin-top: -0.5rem !important;
+        margin-bottom: 1rem !important;
     }
 
     .st-key-metric_slider_row {
