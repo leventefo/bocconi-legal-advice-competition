@@ -65,7 +65,7 @@ class LinePlot:
         y_mean = np.mean(self.y_data.reshape(-1))
 
         
-
+        y_max = max(self.y_data.reshape(-1))
 
         # if max(self.y_data.reshape(-1)) >= 2000:
         #     raise ValueError()
@@ -73,19 +73,19 @@ class LinePlot:
         # np.save("simulation_y_data.npy", self.y_data )
         # np.save("simulation_x_data.npy", self.x_data)
 
-        self.create_figure("", "Pluton's final proposal ($M)", "Months since the start of arbitration", y_mean)
+        self.create_figure("", "Pluton's final proposal ($M)", "Months since the start of arbitration", y_max)
 
     def get_data(self):
         return self.x_data, self.y_data
 
 
-    def create_figure(self, fig_title, yaxis_title, xaxis_title, y_mean):
+    def create_figure(self, fig_title, yaxis_title, xaxis_title, y_max):
         fig = go.Figure().update_layout(template ="plotly_white", title = fig_title, title_x = 0.5, title_y = 0.94, title_font_weight = 600)
-        fig.update_layout(autosize = True) # H465, W600
+        fig.update_layout(autosize = False) # H465, W600
         fig.update_layout(font_family = "Georgia", font_weight = 600, font_size = 18)
         fig.update_layout(paper_bgcolor = "#FFFFFF")
-        fig.update_layout(plot_bgcolor = "#FFFFFF")                                         #y_mean * 0.9, y_mean * 3
-        fig.update_yaxes(ticksuffix = " ", title = yaxis_title, title_standoff = 20, range = [650, None], showgrid = True, showline = False, linecolor = "#FFFFFF", zeroline = False, title_font = dict(size = 16), tickfont = dict(size = 14))
+        fig.update_layout(plot_bgcolor = "#FFFFFF")                                         #y_mean * 0.9, y_mean * 3 range = [450, y_max * 1.1]
+        fig.update_yaxes(ticksuffix = " ", title = yaxis_title, title_standoff = 20, showgrid = True, showline = False, linecolor = "#FFFFFF", zeroline = False, title_font = dict(size = 16), tickfont = dict(size = 14))
         fig.update_layout(margin=dict(t=0, b=95, l=100, r=0))
         fig.update_xaxes(title = xaxis_title, title_standoff = 20.25, range = [-0.5, 12], showgrid = True, showline = False, linecolor = "#FFFFFF", zeroline = False, title_font = dict(size = 16), tickfont = dict(size = 14))
         self.plot_data(self.x_data, self.y_data, 3, fig)
