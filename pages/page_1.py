@@ -2,6 +2,7 @@ import streamlit as st
 import base64
 from pathlib import Path
 import textwrap
+from streamlit_js_eval import streamlit_js_eval
 
 
 
@@ -44,6 +45,17 @@ def main():
         
         if st.button("Simulate!", key="simulation"):
             st.switch_page("pages/page_2.py")
+
+        if st.button("Reset", key = "reset"):
+            with open("states.txt", "w") as f:
+                print({"left_slider" : 650, "middle_slider" : 75, "right_slider" : 25.0}, file = f)
+
+            with open("reset_monitor.txt", "w") as f:
+                f.write("False")
+
+            st.switch_page("streamlit_app.py")
+            streamlit_js_eval(js_expressions="parent.window.location.reload()")
+
 
         with open("memo.pdf", "rb") as f:
             btn = st.download_button(

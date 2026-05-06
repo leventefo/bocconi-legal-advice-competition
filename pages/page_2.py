@@ -12,6 +12,8 @@ import json
 from plotly.subplots import make_subplots
 import matplotlib.pyplot as plt
 import streamlit_shadcn_ui as ui
+import ast
+from streamlit_js_eval import streamlit_js_eval
 
 class LineSimulation:
 
@@ -65,8 +67,8 @@ class LinePlot:
         
 
 
-        if max(self.y_data.reshape(-1)) >= 2000:
-            raise ValueError()
+        # if max(self.y_data.reshape(-1)) >= 2000:
+        #     raise ValueError()
 
         # np.save("simulation_y_data.npy", self.y_data )
         # np.save("simulation_x_data.npy", self.x_data)
@@ -207,12 +209,21 @@ def metric_card(title, value, subtitle=None):
     )
 
 
+
 def main():
+
+    #st.session_state.left_slider = st.session_state.left_slider
+    #st.write(st.session_state.left_slider)
+
+
 
     st.set_page_config(layout="wide")
 
 
     load_css("styles.css")
+
+
+
 
     with st.container(key="page_title"):
         st.title("Legal Advice Competition Supporting Submission")
@@ -237,6 +248,16 @@ def main():
         if st.button("Simulate!", key="simulation"):
             pass
 
+        if st.button("Reset", key = "reset"):
+            with open("states.txt", "w") as f:
+                print({"left_slider" : 650, "middle_slider" : 75, "right_slider" : 25.0}, file = f)
+
+            with open("reset_monitor.txt", "w") as f:
+                f.write("False")
+
+            st.switch_page("streamlit_app.py")
+            streamlit_js_eval(js_expressions="parent.window.location.reload()")
+
         with open("memo.pdf", "rb") as f:
             btn = st.download_button(
                 label = "Download memo",
@@ -251,9 +272,25 @@ def main():
 
     # pco1, col2, pcol3 = st.columns([0.5, 1, 0.5], gap = "medium")
 
-    p = st.session_state.get("left_slider", 650)
-    b = st.session_state.get("middle_slider", 75.4)
-    c = st.session_state.get("right_slider", 25)
+    # p = st.session_state.get("left_slider", 650)
+    # # st.write(p)
+    # b = st.session_state.get("middle_slider", 75.4)
+    # c = st.session_state.get("right_slider", 25)
+
+    #p = st.session_state.left_slider
+
+
+    #sys.exit()
+
+
+    with open("states.txt", "r") as f:
+        state = f.readline()
+        state = ast.literal_eval(state)
+
+    p = state["left_slider"]
+    b = state["middle_slider"]
+    c = state["right_slider"]
+
 
     render = False
 

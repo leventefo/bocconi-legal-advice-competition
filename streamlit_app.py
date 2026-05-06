@@ -9,6 +9,8 @@ import streamlit as st
 import base64
 from pathlib import Path
 import json
+import ast
+from streamlit_js_eval import streamlit_js_eval
 
 class SingleLineSimualtion:
 
@@ -114,18 +116,25 @@ class SingleLinePlot:
         st.plotly_chart(fig, config = {'scrollZoom': False}, theme = None)
 
 
-
 def load_css(file_name):
     with open(file_name) as f:
         st.html(f"<style>{f.read()}</style>")
 
 
-
-def image_to_base64(path):
-    return base64.b64encode(Path(path).read_bytes()).decode()
-
-
 def main():
+
+    with open("reset_monitor.txt", "r+") as f:
+        reset_bool = f.readline().strip()
+        f.seek(0)
+        f.write("False")
+        f.truncate()
+        reset_bool = ast.literal_eval(reset_bool)
+
+        if reset_bool == True:
+            with open("states.txt", "w") as f:
+                print({"left_slider" : 650, "middle_slider" : 75, "right_slider" : 25.0}, file = f)
+            streamlit_js_eval(js_expressions="parent.window.location.reload()")
+
 
     load_css("styles.css")
 
@@ -142,9 +151,11 @@ def main():
         st.markdown(
             '''“When there are disputes among persons, we can simply say: Let us calculate.” <br>
 — Gottfried Wilhelm Leibniz''', unsafe_allow_html = True)
+        
 
+    nav_row_container = st.container(horizontal=True, horizontal_alignment="center", gap="small", key="nav_row")
 
-    with st.container(horizontal=True, horizontal_alignment="center", gap="small", key="nav_row"):
+    with nav_row_container:
 
         if st.button("Overview", key="overview"):
             pass
@@ -154,6 +165,12 @@ def main():
         
         if st.button("Simulate!", key="simulation"):
             st.switch_page("pages/page_2.py")
+        
+        if st.button("Reset", key = "reset"):
+            with open("reset_monitor.txt", "w") as f:
+                f.write("True")
+            st.switch_page("streamlit_app.py")
+
 
         with open("memo.pdf", "rb") as f:
             btn = st.download_button(
@@ -169,18 +186,32 @@ def main():
 
     col1, gap1, col2, gap2, col3 = st.columns([1, 0.1, 1, 0.1, 1])
 
+
+    with open("states.txt", "r") as f:
+        state = f.readline()
+        state = ast.literal_eval(state)
+
+
     with col1:
-        val1 = st.slider("Pluton's initial proposal ($M)", 550, 750, 650, key = "left_slider")
-    
+        val1 = st.slider("Pluton's initial proposal ($M)", 550, 750, state["left_slider"], key = "left_slider")
+  
     with col2:
-        val2 = st.slider("Moon's risk aversion", 45, 105, 75, key = "middle_slider")
+        val2 = st.slider("Moon's risk aversion", 45, 105, state["middle_slider"], key = "middle_slider")
 
     with col3:
-        val3 = st.slider("Pluton's financial situation", 23.0, 27.0, 25.0, key = "right_slider")
+        val3 = st.slider("Pluton's financial situation", 23.0, 27.0, state["right_slider"], key = "right_slider")
+
+
+    states_dict = {"left_slider" : val1, "middle_slider" : val2, "right_slider" : val3}
+
+    with open("states.txt", "r+") as f:
+            state = f.readline().strip()
+            f.seek(0)
+            print(states_dict, file = f)
+            f.truncate()
 
 
     SingleLinePlot(550, val1, val2, val3)
-
 
 main()
     
