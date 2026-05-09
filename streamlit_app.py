@@ -143,6 +143,21 @@ def main():
 
     st.set_page_config(layout="wide")
 
+
+    st.markdown(
+        """
+        <div id="mobile-blocker">
+            <div class="mobile-blocker-card">
+                <h1>Desktop required</h1>
+                <p>This website is optimized for laptop and desktop screens.</p>
+                <p>Please open it on a larger display.</p>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True)
+
+
+
     with st.container(key="page_title"):
         st.title("Legal Advice Competition Supporting Submission")
 
