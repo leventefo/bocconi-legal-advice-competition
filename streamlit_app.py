@@ -11,6 +11,7 @@ from pathlib import Path
 import json
 import ast
 from streamlit_js_eval import streamlit_js_eval
+from pages.page_2 import get_line_simulation
 
 class SingleLineSimualtion:
 
@@ -133,6 +134,8 @@ def main():
         if reset_bool == True:
             with open("states.txt", "w") as f:
                 print({"left_slider" : 650, "middle_slider" : 75, "right_slider" : 25.0}, file = f)
+
+            st.cache_data.clear()
             streamlit_js_eval(js_expressions="parent.window.location.reload()")
 
 

@@ -53,6 +53,7 @@ def main():
             with open("reset_monitor.txt", "w") as f:
                 f.write("False")
 
+            st.cache_data.clear()
             st.switch_page("streamlit_app.py")
             streamlit_js_eval(js_expressions="parent.window.location.reload()")
 
