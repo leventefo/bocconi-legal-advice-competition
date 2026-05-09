@@ -399,6 +399,10 @@ def main():
             st.plotly_chart(hist_fig, width="stretch", config={"scrollZoom": False}, theme = None)
 
 
+
+    time.sleep(0.2)
+
+
     with slider_col:
             slider_position = st.slider(
                 "Please select a month to inspect",

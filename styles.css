@@ -794,3 +794,11 @@ header[data-testid="stHeader"] {
         opacity: 0.25;
     }
 }
+
+
+@media (max-height: 850px) {
+    .st-key-parameter_exp,
+    .st-key-model_exp {
+        padding: 1.0rem 1.0rem !important;
+    }
+}
