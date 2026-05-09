@@ -139,9 +139,9 @@ def main():
             streamlit_js_eval(js_expressions="parent.window.location.reload()")
 
 
-    load_css("styles.css")
-
     st.set_page_config(layout="wide")
+
+    load_css("styles.css")
 
 
     st.markdown(
