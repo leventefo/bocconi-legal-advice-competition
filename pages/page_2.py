@@ -305,6 +305,23 @@ def main():
     #sys.exit()
 
 
+
+    loading_placeholder = st.empty()
+
+    loading_placeholder.markdown(
+        """
+        <div class="simulation-loading">
+            <div class="simulation-loading-card">
+                <div class="simulation-loading-title">
+                    Loading simulation<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
+                </div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+
     with open("states.txt", "r") as f:
         state = f.readline()
         state = ast.literal_eval(state)
@@ -322,6 +339,7 @@ def main():
             render = True
         except ValueError:
             pass
+
 
 
     with st.container(key="metric_slider_row"):
@@ -357,6 +375,8 @@ def main():
     with right_col:
         hist_metric = metric_card("Metric", f"Pluton proposed {round(hist_median, 1)} ($M) on median {slider_position} month(s) after the commencement of arbitration.")
 
+
+    loading_placeholder.empty()
 
     with slider_col:
             month = st.slider(
