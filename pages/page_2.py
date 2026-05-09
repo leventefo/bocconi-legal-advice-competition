@@ -152,7 +152,7 @@ class HistPlot:
 
         self.median = np.median(self.values)
 
-        self.create_figure(fig_title = "", yaxis_title = "Frequency", xaxis_title= f"Final proposals ($M) {month} month(s) after arbitration began")
+        self.create_figure(fig_title = "", yaxis_title = "Frequency", xaxis_title= f"Proposals ($M) {month} month(s) after arbitration began")
 
     def create_figure(self, fig_title, yaxis_title, xaxis_title):
         fig = make_subplots(rows = 2, shared_xaxes = True, vertical_spacing = 0.00, row_heights=[0.3,0.7]).update_layout(template ="plotly_white", title = fig_title, title_x = 0.5, title_y = 0.94, title_font_weight = 600)
