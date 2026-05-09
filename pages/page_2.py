@@ -212,6 +212,10 @@ def metric_card(title, value, subtitle=None):
 
 def main():
 
+    with open("slider_position.txt", "r") as f:
+        slider_position = int(f.readline().strip())
+
+
     #st.session_state.left_slider = st.session_state.left_slider
     #st.write(st.session_state.left_slider)
 
@@ -254,6 +258,9 @@ def main():
 
             with open("reset_monitor.txt", "w") as f:
                 f.write("False")
+
+            with open("slider_position.txt", "w") as f:
+                f.write(str(7))
 
             get_line_simulation.clear()
             st.switch_page("streamlit_app.py")
@@ -313,9 +320,13 @@ def main():
         with slider_col:
             month = st.slider(
                 "Please select a month to inspect",
-                1, 12, 7, 1,
+                1, 12, slider_position, 1,
                 key="month_slider"
             )
+
+        with open("slider_position.txt", "w") as f:
+            f.write(str(month))
+
 
 
     hist_fig = HistPlot(month, x_data, y_data)

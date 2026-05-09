@@ -172,6 +172,10 @@ def main():
         if st.button("Reset", key = "reset"):
             with open("reset_monitor.txt", "w") as f:
                 f.write("True")
+
+            with open("slider_position.txt", "w") as f:
+                f.write(str(7))
+
             st.switch_page("streamlit_app.py")
 
 
