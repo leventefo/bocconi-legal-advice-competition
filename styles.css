@@ -124,9 +124,9 @@
 
 .st-key-leibniz_quote [data-testid="stMarkdownContainer"] p {
     font-family: var(--main-font);
-    font-size: 17px;
+    font-size: 19px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     text-align: center;
 }
 
