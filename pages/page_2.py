@@ -336,11 +336,11 @@ def main():
 
 
     with left_col:
-        line_metric = metric_card("Maximum/Maximizer", f"Maximum {round(line_maximum, 1)} ($M) attained after {round(line_maximizer, 1)} month(s).")
+        line_metric = metric_card("Metric", f"On Median, Pluton's proposals peaked at {round(line_maximum, 1)} ($M) after {round(line_maximizer, 1)} months.")
 
     
     with right_col:
-        hist_metric = metric_card("Median", f"Pluton proposed {round(hist_median, 1)} ($M) on median {month} month(s) after the commencement of arbitration.")
+        hist_metric = metric_card("Metric", f"Pluton proposed {round(hist_median, 1)} ($M) on median {month} month(s) after the commencement of arbitration.")
 
 
 
