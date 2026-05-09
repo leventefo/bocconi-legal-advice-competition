@@ -694,7 +694,7 @@ header[data-testid="stHeader"] {
     display: none;
 }
 
-@media (max-width: 1500px) {
+@media (max-width: 1100px) {
     #mobile-blocker {
         display: flex !important;
         position: fixed !important;
