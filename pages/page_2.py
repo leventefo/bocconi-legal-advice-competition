@@ -152,7 +152,7 @@ class HistPlot:
 
         self.median = np.median(self.values)
 
-        self.create_figure(fig_title = "", yaxis_title = "Frequency", xaxis_title= f"Proposals ($M) {month} month(s) after arbitration began")
+        self.create_figure(fig_title = "", yaxis_title = "Frequency", xaxis_title= f"Offers ($M) {month} month(s) after arbitration began")
 
     def create_figure(self, fig_title, yaxis_title, xaxis_title):
         fig = make_subplots(rows = 2, shared_xaxes = True, vertical_spacing = 0.00, row_heights=[0.3,0.7]).update_layout(template ="plotly_white", title = fig_title, title_x = 0.5, title_y = 0.94, title_font_weight = 600)
@@ -160,9 +160,9 @@ class HistPlot:
         fig.update_layout(font_family = "Georgia", font_weight = 600, font_size = 18)
         fig.update_layout(paper_bgcolor = "#FFFFFF")
         fig.update_layout(plot_bgcolor = "#FFFFFF")
-        fig.update_yaxes(ticksuffix = " ", title = yaxis_title, title_standoff = 20, title_font = dict(size = 16), tickfont = dict(size = 14))
+        fig.update_yaxes(ticksuffix = " ", title = yaxis_title, title_standoff = 20, title_font = dict(size = 15), tickfont = dict(size = 14))
         fig.update_layout(margin=dict(t=0, b=95, l=90, r=20), showlegend = False)
-        fig.update_xaxes(title = xaxis_title, title_standoff = 18, ticklabelstandoff = 10, title_font = dict(size = 16), row = 2, col = 1, tickfont = dict(size = 14))
+        fig.update_xaxes(title = xaxis_title, title_standoff = 18, ticklabelstandoff = 10, title_font = dict(size = 15), row = 2, col = 1, tickfont = dict(size = 14))
         self.plot_data(fig, self.values, self.median)
 
     def plot_data(self, fig, dataset, median):
