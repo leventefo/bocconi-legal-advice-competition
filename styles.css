@@ -311,7 +311,7 @@ header[data-testid="stHeader"] {
     border: 1px solid rgba(22, 43, 82, 0.35);
     border-radius: 14px;
     padding: 1.3rem 1.8rem;
-    margin: 1rem auto;
+    margin: 0.3rem auto;
     max-width: 750px;
     background: rgba(255, 255, 255, 0.65);
     box-shadow: 0 4px 16px rgba(22, 43, 82, 0.08);
@@ -329,7 +329,7 @@ header[data-testid="stHeader"] {
     border: 1px solid rgba(22, 43, 82, 0.35);
     border-radius: 14px;
     padding: 1.3rem 1.8rem;
-    margin: 1rem auto;
+    margin: 0.3rem auto;
     max-width: 750px;
     background: rgba(255, 255, 255, 0.65);
     box-shadow: 0 4px 16px rgba(22, 43, 82, 0.08);
@@ -584,7 +584,7 @@ header[data-testid="stHeader"] {
 }
 
 .st-key-metric_slider_row {
-    margin-top: 0.6rem !important;
+    margin-top: 0.0rem !important;
 }
 
 .st-key-formula {
@@ -599,7 +599,7 @@ header[data-testid="stHeader"] {
 }
 
 .st-key-formula .katex-display {
-    margin-top: 0.4rem !important;
+    margin-top: 0rem !important;
     margin-bottom: 0rem !important;
     text-align: center !important;
 }

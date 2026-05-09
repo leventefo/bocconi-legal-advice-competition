@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 import streamlit_shadcn_ui as ui
 import ast
 from streamlit_js_eval import streamlit_js_eval
+import time
 
 class LineSimulation:
 
@@ -317,26 +318,15 @@ def main():
             vertical_alignment="center"
         )
 
-        with slider_col:
-            month = st.slider(
-                "Please select a month to inspect",
-                1, 12, slider_position, 1,
-                key="month_slider"
-            )
-
-        with open("slider_position.txt", "w") as f:
-            f.write(str(month))
 
 
-
-    hist_fig = HistPlot(month, x_data, y_data)
+    hist_fig = HistPlot(slider_position, x_data, y_data)
 
     hist_median = hist_fig.median
 
     hist_fig = hist_fig.fig
 
     
-
     with st.container(key = "wide_chart_section"):
         col1, col2 = st.columns(2, gap="small", vertical_alignment="center")
 
@@ -352,10 +342,18 @@ def main():
 
     
     with right_col:
-        hist_metric = metric_card("Metric", f"Pluton proposed {round(hist_median, 1)} ($M) on median {month} month(s) after the commencement of arbitration.")
+        hist_metric = metric_card("Metric", f"Pluton proposed {round(hist_median, 1)} ($M) on median {slider_position} month(s) after the commencement of arbitration.")
 
 
+    with slider_col:
+            month = st.slider(
+                "Please select a month to inspect",
+                1, 12, slider_position, 1,
+                key="month_slider"
+            )
 
+    with open("slider_position.txt", "w") as f:
+            f.write(str(month))
 
 
 main()

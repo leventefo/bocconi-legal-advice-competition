@@ -96,7 +96,7 @@ Y(x) &= a + \left(b^{-1}qx\right)^{d-t+2}\cdot (10-j)^{-f(x-c)}
                 otherwise p.
             </li>
             <li>p constitutes to Pluton's initial proposal amount.</li>
-            <li>g is the minimum amount Moon is willing to settle for.</li>
+            <li>g is the minimum amount Moon is willing to settle for (assumed to be 550 ($M)).</li>
             <li>b represents the risk aversion of Moon.</li>
             <li>q is simply p/1000.</li>
             <li>x is the number of months elapsed since the start of arbitration (the independent variable).</li>
@@ -116,10 +116,13 @@ Y(x) &= a + \left(b^{-1}qx\right)^{d-t+2}\cdot (10-j)^{-f(x-c)}
             st.markdown(
             '''
             The model endevours to support the assertions and the final strategy outlined in the report.
-            It models, given a set of parameters - some of which are uncertain and drawn from normal distributions, Pluton's final proposal amount
+            It models (through 300 simulations), given a set of parameters - some of which are uncertain and drawn from normal distributions (d, t & j), Pluton's final proposal amount
             after a given amount of months spent at arbitration.
             For instance, if Moon is risk loving with an adept external council and Pluton is financially stabel with an entry level legal team and external council,
-            then the maximizer (the number of months elapsed since arbitration commenced and until a deal is reached) will be much smaller, and Pluton's final offer will be substantially higher.
+            then the maximizer (the number of months elapsed since arbitration commenced and until a deal is reached) will be much smaller, and Pluton's final offer will be substantially higher. <br>
+
+            *To interact with the model, you may alter p, b, and c on the 'Overview' page. These changes will then be reflected after clicking 'Simulate!' in the top ribbon. To reset the model and clear
+            cached data, press 'Reset'.*
             ''', unsafe_allow_html = True)
 
 
