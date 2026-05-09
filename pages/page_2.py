@@ -400,7 +400,7 @@ def main():
 
 
 
-    time.sleep(0.2)
+    #time.sleep(0.2)
 
 
     with slider_col:
