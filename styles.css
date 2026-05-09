@@ -639,3 +639,44 @@ header[data-testid="stHeader"] {
         margin-top: 0rem !important;
     }
 }
+
+
+.st-key-parameter_exp,
+.st-key-model_exp {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+
+    padding-top: 1.35rem !important;
+    padding-bottom: 1.35rem !important;
+    padding-left: 1.8rem !important;
+    padding-right: 1.8rem !important;
+}
+
+.st-key-parameter_exp [data-testid="stMarkdownContainer"],
+.st-key-model_exp [data-testid="stMarkdownContainer"] {
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+.st-key-parameter_exp .parameter-list {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.st-key-parameter_exp .parameter-list li:first-child {
+    margin-top: 0 !important;
+}
+
+.st-key-parameter_exp .parameter-list li:last-child {
+    margin-bottom: 0 !important;
+}
+
+.st-key-model_exp [data-testid="stMarkdownContainer"] p:first-child {
+    margin-top: 0 !important;
+}
+
+.st-key-model_exp [data-testid="stMarkdownContainer"] p:last-child {
+    margin-bottom: 0 !important;
+}

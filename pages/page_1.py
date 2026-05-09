@@ -123,6 +123,7 @@ Y(x) &= a + \left(b^{-1}qx\right)^{d-t+2}\cdot (10-j)^{-f(x-c)}
 
             *To interact with the model, you may alter p, b, and c on the 'Overview' page. These changes will then be reflected after clicking 'Simulate!' in the top ribbon. To reset the model and clear
             cached data, press 'Reset'.*
+            
             ''', unsafe_allow_html = True)
 
 
