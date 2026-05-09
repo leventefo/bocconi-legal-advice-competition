@@ -213,8 +213,23 @@ def metric_card(title, value, subtitle=None):
 
 def main():
 
+
+
+    with open("page_switch.txt", "r") as f:
+        page_switch = ast.literal_eval(f.readline().strip())
+
+    
+    with open("page_switch.txt", "w") as f:
+        f.write("False")
+
+
+
     with open("slider_position.txt", "r") as f:
         slider_position = int(f.readline().strip())
+
+
+    if "month_slider" not in st.session_state:
+        st.session_state["month_slider"] = slider_position
 
 
     #st.session_state.left_slider = st.session_state.left_slider
@@ -258,9 +273,17 @@ def main():
     with st.container(horizontal=True, horizontal_alignment="center", gap="small", key="nav_row"):
 
         if st.button("Overview", key="overview"):
+
+            with open("page_switch.txt", "w") as f:
+                f.write("True")
+
             st.switch_page("streamlit_app.py")
         
         if st.button("Model description", key="model_description"):
+
+            with open("page_switch.txt", "w") as f:
+                f.write("True")
+
             st.switch_page("pages/page_1.py")
         
         if st.button("Simulate!", key="simulation"):
@@ -275,6 +298,10 @@ def main():
 
             with open("slider_position.txt", "w") as f:
                 f.write(str(7))
+
+
+            with open("page_switch.txt", "w") as f:
+                f.write("True")
 
             get_line_simulation.clear()
             st.switch_page("streamlit_app.py")
@@ -305,21 +332,22 @@ def main():
     #sys.exit()
 
 
-
     loading_placeholder = st.empty()
 
-    loading_placeholder.markdown(
-        """
-        <div class="simulation-loading">
-            <div class="simulation-loading-card">
-                <div class="simulation-loading-title">
-                    Loading simulation<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
+    if page_switch:
+
+        loading_placeholder.markdown(
+            """
+            <div class="simulation-loading">
+                <div class="simulation-loading-card">
+                    <div class="simulation-loading-title">
+                        Loading simulation<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
+                    </div>
                 </div>
             </div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+            """,
+            unsafe_allow_html=True
+        )
 
 
     with open("states.txt", "r") as f:
@@ -341,6 +369,7 @@ def main():
             pass
 
 
+    month = st.session_state["month_slider"]
 
     with st.container(key="metric_slider_row"):
         left_col, slider_col, right_col = st.columns(
@@ -351,11 +380,13 @@ def main():
 
 
 
-    hist_fig = HistPlot(slider_position, x_data, y_data)
+    hist_fig = HistPlot(month, x_data, y_data)
 
     hist_median = hist_fig.median
 
     hist_fig = hist_fig.fig
+
+
 
     
     with st.container(key = "wide_chart_section"):
@@ -368,25 +399,28 @@ def main():
             st.plotly_chart(hist_fig, width="stretch", config={"scrollZoom": False}, theme = None)
 
 
+    with slider_col:
+            slider_position = st.slider(
+                "Please select a month to inspect",
+                1, 12, step = 1,
+                key="month_slider"
+            )
+
+    with open("slider_position.txt", "w") as f:
+        f.write(str(st.session_state["month_slider"]))
+
+
     with left_col:
         line_metric = metric_card("Metric", f"On Median, Pluton's proposals peaked at {round(line_maximum, 1)} ($M) after {round(line_maximizer, 1)} months.")
 
     
     with right_col:
-        hist_metric = metric_card("Metric", f"Pluton proposed {round(hist_median, 1)} ($M) on median {slider_position} month(s) after the commencement of arbitration.")
+        hist_metric = metric_card("Metric", f"Pluton proposed {round(hist_median, 1)} ($M) on median {month} month(s) after the commencement of arbitration.")
 
 
     loading_placeholder.empty()
 
-    with slider_col:
-            month = st.slider(
-                "Please select a month to inspect",
-                1, 12, slider_position, 1,
-                key="month_slider"
-            )
 
-    with open("slider_position.txt", "w") as f:
-            f.write(str(month))
 
 
 main()

@@ -182,6 +182,10 @@ def main():
             st.switch_page("pages/page_1.py")
         
         if st.button("Simulate!", key="simulation"):
+
+            with open("page_switch.txt", "w") as f:
+                f.write("True")
+
             st.switch_page("pages/page_2.py")
         
         if st.button("Reset", key = "reset"):
