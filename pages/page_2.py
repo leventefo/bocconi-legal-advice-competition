@@ -204,12 +204,17 @@ def metric_card(title, value, subtitle=None):
 
 def main():
 
-    try: 
-        st.write(os.listdir(Path.home() / ".config" / "localStoragePy"))
-    
-    except FileNotFoundError:
+    file = Path.home() / ".config" / "localStoragePy"
+
+    if not file.exists():
         with open("last_cleanup.txt", "w") as f:
             f.write(str(datetime.now().isoformat()))
+    elif path.exists():
+        content = f.read_text().strip()
+
+        if not content:
+            with open("last_cleanup.txt", "w") as f:
+                f.write(str(datetime.now().isoformat()))
 
 
     with open("last_cleanup.txt", "r") as f:
