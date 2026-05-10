@@ -138,6 +138,9 @@ def main():
         last_cleanup_time = datetime.fromisoformat(f.read().strip())
 
     if datetime.now() - last_cleanup_time >= timedelta(minutes=1):
+
+        st.write("Will run cleanup")
+
         storage_id_cleanup.main()
 
 
