@@ -15,14 +15,7 @@ import streamlit_shadcn_ui as ui
 import ast
 from streamlit_js_eval import streamlit_js_eval
 import time
-#from streamlit_local_storage import LocalStorage
-#import st_local_storage
-#localS = LocalStorage()
-
 from localStoragePy import localStoragePy
-
-
-#localS = st_local_storage.StLocalStorage()
 
 localStorage = localStoragePy('my_app.py')
 
@@ -72,17 +65,8 @@ class LinePlot:
 
         self.y_data = np.array(self.y_data)
 
-
         y_mean = np.mean(self.y_data.reshape(-1))
-
-        
         y_max = max(self.y_data.reshape(-1))
-
-        # if max(self.y_data.reshape(-1)) >= 2000:
-        #     raise ValueError()
-
-        # np.save("simulation_y_data.npy", self.y_data )
-        # np.save("simulation_x_data.npy", self.x_data)
 
         self.create_figure("", "Pluton's final proposal ($M)", "Months since the start of arbitration", y_max)
 
@@ -113,9 +97,7 @@ class LinePlot:
     def plot_data(self, x_data, y_data, line_width, fig):
         palette = cycle(px.colors.sequential.RdBu)
         for i in range(len(y_data)):
-            #st.image(fig, config = {'scrollZoom': False})
             fig.add_trace(go.Scatter(x = x_data[i], y = y_data[i], line = dict(width = line_width, color = next(palette)), opacity = 0.15, showlegend=False))
-            #time.sleep(0.01)
         median_values = self.find_median_values(y_data)
 
         max_y = max(median_values)
@@ -128,10 +110,8 @@ class LinePlot:
         self.median_maximum = max_y
 
         fig.add_trace(go.Scatter(x = x_data[0], y = median_values, line = dict(width = line_width, color = "#8B0000"), opacity = 1, showlegend=False))
-        #fig.show(renderer = "browser")
         self.fig = fig
         return self.fig
-        #st.plotly_chart(fig, config = {'scrollZoom': False})
 
 
 class HistSimulation:
@@ -182,7 +162,6 @@ class HistPlot:
         fig.add_trace(go.Histogram(x = dataset, marker_color = "#2A3F5F"), row = 2, col = 1)
         fig.add_trace(go.Box(x=dataset, marker_color = "#8B0000"), row = 1, col = 1)
         fig.update_yaxes(title_text = None, showticklabels=False, row = 1, col = 1)
-        #st.plotly_chart(fig, config = {'scrollZoom': False})
         self.fig = fig
         return fig
 
@@ -218,22 +197,6 @@ def metric_card(title, value, subtitle=None):
         """,
         unsafe_allow_html=True
     )
-
-
-
-def save_to_local_storage():
-    pass
-    #pass
-
-
-
-def load_from_local_storage():
-    pass
-    #saved_individual = localS.getAll()
-    #st.write(saved_individual)
-
-
-
 
 
 def main():
@@ -380,7 +343,6 @@ def main():
     
     with right_col:
         hist_metric = metric_card("Metric", f"Pluton proposed {round(hist_median, 1)} ($M) on median {slider_position} month(s) after the commencement of arbitration.")
-
 
     loading_placeholder.empty()
 

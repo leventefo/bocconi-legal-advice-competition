@@ -129,20 +129,6 @@ def save_to_local_storage(to_save_param):
 
 def main():
 
-    with open("reset_monitor.txt", "r+") as f:
-        reset_bool = f.readline().strip()
-        f.seek(0)
-        f.write("False")
-        f.truncate()
-        reset_bool = ast.literal_eval(reset_bool)
-
-        if reset_bool == True:
-            with open("states.txt", "w") as f:
-                print({"left_slider" : 650, "middle_slider" : 75, "right_slider" : 25.0}, file = f)
-
-            st.cache_data.clear()
-            streamlit_js_eval(js_expressions="parent.window.location.reload()")
-
     st.set_page_config(layout="wide")
 
     load_css("styles.css")
@@ -184,7 +170,6 @@ def main():
             st.switch_page("pages/page_1.py")
         
         if st.button("Simulate!", key="simulation"):
-
             localStorage.setItem("page_switch", True)
             st.switch_page("pages/page_2.py")
         

@@ -24,8 +24,6 @@ def main():
 
     load_css("styles.css")
 
-
-
     st.markdown(
         """
         <div id="mobile-blocker">
@@ -37,9 +35,6 @@ def main():
         </div>
         """,
         unsafe_allow_html=True)
-
-
-
 
     with st.container(key="page_title"):
         st.title("Legal Advice Competition Supporting Submission")
@@ -134,6 +129,5 @@ Y(x) &= a + \left(b^{-1}qx\right)^{d-t+2}\cdot (10-j)^{-f(x-c)}
             cached data, press 'Reset'.*
             
             ''', unsafe_allow_html = True)
-
 
 main()

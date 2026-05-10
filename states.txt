@@ -1,1 +1,0 @@
-{'left_slider': 650, 'middle_slider': 75, 'right_slider': 25.0}
