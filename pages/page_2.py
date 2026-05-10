@@ -209,7 +209,7 @@ def main():
     if not file.exists():
         with open("last_cleanup.txt", "w") as f:
             f.write(str(datetime.now().isoformat()))
-    elif path.exists():
+    elif file.exists():
         content = f.read_text().strip()
 
         if not content:

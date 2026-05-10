@@ -138,7 +138,7 @@ def main():
     if not file.exists():
         with open("last_cleanup.txt", "w") as f:
             f.write(str(datetime.now().isoformat()))
-    elif path.exists():
+    elif file.exists():
         content = f.read_text().strip()
 
         if not content:
@@ -148,7 +148,6 @@ def main():
 
     with open("last_cleanup.txt", "r") as f:
         last_cleanup_time = datetime.fromisoformat(f.read().strip())
-
 
     if datetime.now() - last_cleanup_time >= timedelta(minutes=120):
         storage_id_cleanup.main()
