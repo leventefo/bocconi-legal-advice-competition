@@ -146,12 +146,12 @@ def main():
 
     st.write("before cleanup" + str(random.randint(1, 100)))
 
-    st.write(datetime.now() - last_cleanup_time >= timedelta(seconds=10))
+    st.write(datetime.now() - last_cleanup_time >= timedelta(seconds=60))
 
     st.write("server time", datetime.now())
     st.write("file time", last_cleanup_time)
 
-    if datetime.now() - last_cleanup_time >= timedelta(seconds=10):
+    if datetime.now() - last_cleanup_time >= timedelta(seconds=60):
 
         st.write("Will run cleanup")
 
