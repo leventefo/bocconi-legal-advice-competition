@@ -20,11 +20,18 @@ def image_to_base64(path):
 
 def main():
 
+    try: 
+        st.write(os.listdir(Path.home() / ".config" / "localStoragePy"))
+    
+    except FileNotFoundError:
+        with open("last_cleanup.txt", "w") as f:
+            f.write(str(datetime.now().isoformat()))
+
 
     with open("last_cleanup.txt", "r") as f:
         last_cleanup_time = datetime.fromisoformat(f.read().strip())
 
-    if datetime.now() - last_cleanup_time >= timedelta(seconds=10):
+    if datetime.now() - last_cleanup_time >= timedelta(minutes=120):
         storage_id_cleanup.main()
 
 

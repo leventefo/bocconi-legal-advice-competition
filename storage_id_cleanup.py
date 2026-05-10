@@ -17,7 +17,7 @@ def main():
             modified_timestamp = namespace.stat().st_mtime
             modified_time = datetime.fromtimestamp(modified_timestamp)
 
-            if modified_time <= datetime.now():  #- timedelta(minutes = 1):
+            if modified_time <= datetime.now()  - timedelta(minutes = 120):
                 shutil.rmtree(namespace)
     
     with open("last_cleanup.txt", "w") as f:
