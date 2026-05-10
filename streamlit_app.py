@@ -11,9 +11,7 @@ from pathlib import Path
 import json
 import ast
 from streamlit_js_eval import streamlit_js_eval
-from localStoragePy import localStoragePy
-
-localStorage = localStoragePy('my_app.py')
+from pages.page_2 import get_line_simulation
 
 class SingleLineSimualtion:
 
@@ -101,7 +99,9 @@ class SingleLinePlot:
 
         palette = cycle(px.colors.sequential.RdBu)
         for i in range(len(y_data)):
+            #st.image(fig, config = {'scrollZoom': False})
             fig.add_trace(go.Scatter(x = x_data[i], y = y_data[i], line = dict(width = line_width, color = next(palette)), opacity = 0.15, showlegend=False))
+            #time.sleep(0.01)
         median_values = self.find_median_values(y_data)
 
         max_y = max(median_values)
@@ -111,6 +111,7 @@ class SingleLinePlot:
         month = x_data[0][pointer]
 
         fig.add_trace(go.Scatter(x = x_data[0], y = median_values, line = dict(width = line_width, color = "#8B0000"), opacity = 1, showlegend=False))
+        #fig.show(renderer = "browser")
         fig.add_vline(x=month, line_width=3, line_dash="dash", line_color="#12294F", annotation_text = f"  Pluton's proposal peaked at {round(max_y, 1)} ($M) after {round(month, 1)} months.", annotation_position="top right")
         fig.update_annotations(font=dict(size = 13, color = "#12294F"))
         st.plotly_chart(fig, config = {'scrollZoom': False}, theme = None)
@@ -119,12 +120,6 @@ class SingleLinePlot:
 def load_css(file_name):
     with open(file_name) as f:
         st.html(f"<style>{f.read()}</style>")
-
-
-def save_to_local_storage(to_save_param):
-
-    for key, value in to_save_param.items():
-        localStorage.setItem(key, value)
 
 
 def main():
@@ -143,9 +138,11 @@ def main():
             st.cache_data.clear()
             streamlit_js_eval(js_expressions="parent.window.location.reload()")
 
+
     st.set_page_config(layout="wide")
 
     load_css("styles.css")
+
 
     st.markdown(
         """
@@ -158,6 +155,8 @@ def main():
         </div>
         """,
         unsafe_allow_html=True)
+
+
 
     with st.container(key="page_title"):
         st.title("Legal Advice Competition Supporting Submission")
@@ -180,21 +179,24 @@ def main():
             pass
         
         if st.button("Model description", key="model_description"):
-            localStorage.setItem("page_switch", True)
             st.switch_page("pages/page_1.py")
         
         if st.button("Simulate!", key="simulation"):
 
-            localStorage.setItem("page_switch", True)
+            with open("page_switch.txt", "w") as f:
+                f.write("True")
+
             st.switch_page("pages/page_2.py")
         
         if st.button("Reset", key = "reset"):
-            st.session_state["left_slider"] = 650
-            st.session_state["middle_slider"] = 75
-            st.session_state["right_slider"] = 25.0
+            with open("reset_monitor.txt", "w") as f:
+                f.write("True")
 
-            st.cache_data.clear()
-            localStorage.clear()
+            with open("slider_position.txt", "w") as f:
+                f.write(str(7))
+
+            st.switch_page("streamlit_app.py")
+
 
         with open("memo.pdf", "rb") as f:
             btn = st.download_button(
@@ -210,32 +212,32 @@ def main():
 
     col1, gap1, col2, gap2, col3 = st.columns([1, 0.1, 1, 0.1, 1])
 
-    if (localStorage.getItem("PIP") != None) and (localStorage.getItem("MRA") != None) and (localStorage.getItem("PFS") != None):
-        ls = int(localStorage.getItem("PIP"))
-        ms = int(localStorage.getItem("MRA"))
-        rs = float(localStorage.getItem("PFS"))
-    
-    else:
-        ls, ms, rs = 650, 75, 25.0
+
+    with open("states.txt", "r") as f:
+        state = f.readline()
+        state = ast.literal_eval(state)
 
 
     with col1:
-        val1 = st.slider("Pluton's initial proposal ($M)", 550, 750, ls, key = "left_slider")
+        val1 = st.slider("Pluton's initial proposal ($M)", 550, 750, state["left_slider"], key = "left_slider")
   
     with col2:
-        val2 = st.slider("Moon's risk aversion", 45, 105, ms, key = "middle_slider")
+        val2 = st.slider("Moon's risk aversion", 45, 105, state["middle_slider"], key = "middle_slider")
 
     with col3:
-        val3 = st.slider("Pluton's financial situation", 23.0, 27.0, rs, key = "right_slider")
+        val3 = st.slider("Pluton's financial situation", 23.0, 27.0, state["right_slider"], key = "right_slider")
 
 
     states_dict = {"left_slider" : val1, "middle_slider" : val2, "right_slider" : val3}
 
-    to_save = {"PIP" : val1, "MRA" : val2, "PFS" : val3}
+    with open("states.txt", "r+") as f:
+            state = f.readline().strip()
+            f.seek(0)
+            print(states_dict, file = f)
+            f.truncate()
+
 
     SingleLinePlot(550, val1, val2, val3)
-
-    save_to_local_storage(to_save)
 
 main()
     

@@ -15,16 +15,6 @@ import streamlit_shadcn_ui as ui
 import ast
 from streamlit_js_eval import streamlit_js_eval
 import time
-#from streamlit_local_storage import LocalStorage
-#import st_local_storage
-#localS = LocalStorage()
-
-from localStoragePy import localStoragePy
-
-
-#localS = st_local_storage.StLocalStorage()
-
-localStorage = localStoragePy('my_app.py')
 
 class LineSimulation:
 
@@ -221,28 +211,38 @@ def metric_card(title, value, subtitle=None):
 
 
 
-def save_to_local_storage():
-    pass
-    #pass
-
-
-
-def load_from_local_storage():
-    pass
-    #saved_individual = localS.getAll()
-    #st.write(saved_individual)
-
-
-
-
-
 def main():
 
-    page_switch =  ast.literal_eval(localStorage.getItem("page_switch"))
+
+
+    with open("page_switch.txt", "r") as f:
+        page_switch = ast.literal_eval(f.readline().strip())
+
+    
+    with open("page_switch.txt", "w") as f:
+        f.write("False")
+
+
+
+    with open("slider_position.txt", "r") as f:
+        slider_position = int(f.readline().strip())
+
+
+    if "month_slider" not in st.session_state:
+        st.session_state["month_slider"] = slider_position
+
+
+    #st.session_state.left_slider = st.session_state.left_slider
+    #st.write(st.session_state.left_slider)
+
+
 
     st.set_page_config(layout="wide")
 
+
     load_css("styles.css")
+
+
 
     st.markdown(
         """
@@ -256,6 +256,8 @@ def main():
         """,
         unsafe_allow_html=True)
 
+
+
     with st.container(key="page_title"):
         st.title("Legal Advice Competition Supporting Submission")
 
@@ -267,23 +269,43 @@ def main():
             '''“When there are disputes among persons, we can simply say: Let us calculate.” <br>
 — Gottfried Wilhelm Leibniz''', unsafe_allow_html = True)
 
+
     with st.container(horizontal=True, horizontal_alignment="center", gap="small", key="nav_row"):
 
         if st.button("Overview", key="overview"):
-            localStorage.setItem("page_switch", True)
+
+            with open("page_switch.txt", "w") as f:
+                f.write("True")
+
             st.switch_page("streamlit_app.py")
         
         if st.button("Model description", key="model_description"):
-            localStorage.setItem("page_switch", True)
+
+            with open("page_switch.txt", "w") as f:
+                f.write("True")
+
             st.switch_page("pages/page_1.py")
         
         if st.button("Simulate!", key="simulation"):
             pass
 
         if st.button("Reset", key = "reset"):
-            st.cache_data.clear()
-            localStorage.clear()
+            with open("states.txt", "w") as f:
+                print({"left_slider" : 650, "middle_slider" : 75, "right_slider" : 25.0}, file = f)
+
+            with open("reset_monitor.txt", "w") as f:
+                f.write("False")
+
+            with open("slider_position.txt", "w") as f:
+                f.write(str(7))
+
+
+            with open("page_switch.txt", "w") as f:
+                f.write("True")
+
+            get_line_simulation.clear()
             st.switch_page("streamlit_app.py")
+            streamlit_js_eval(js_expressions="parent.window.location.reload()")
 
         with open("memo.pdf", "rb") as f:
             btn = st.download_button(
@@ -296,6 +318,19 @@ def main():
             )
 
     st.divider()
+
+    # pco1, col2, pcol3 = st.columns([0.5, 1, 0.5], gap = "medium")
+
+    # p = st.session_state.get("left_slider", 650)
+    # # st.write(p)
+    # b = st.session_state.get("middle_slider", 75.4)
+    # c = st.session_state.get("right_slider", 25)
+
+    #p = st.session_state.left_slider
+
+
+    #sys.exit()
+
 
     loading_placeholder = st.empty()
 
@@ -314,11 +349,15 @@ def main():
             unsafe_allow_html=True
         )
 
-        localStorage.setItem("page_switch", False)
 
-    p = int(localStorage.getItem("PIP"))
-    b =  int(localStorage.getItem("MRA"))
-    c = float(localStorage.getItem("PFS"))
+    with open("states.txt", "r") as f:
+        state = f.readline()
+        state = ast.literal_eval(state)
+
+    p = state["left_slider"]
+    b = state["middle_slider"]
+    c = state["right_slider"]
+
 
     render = False
 
@@ -329,6 +368,9 @@ def main():
         except ValueError:
             pass
 
+
+    month = st.session_state["month_slider"]
+
     with st.container(key="metric_slider_row"):
         left_col, slider_col, right_col = st.columns(
             [1, 2.2, 1],
@@ -337,24 +379,16 @@ def main():
         )
 
 
-    if localStorage.getItem("slider_pos") == None:
-        slider_position = 7
-    else:
-        slider_position = int(localStorage.getItem("slider_pos"))
 
-    try:
-        slider_position = st.session_state["month_slider"]
-    except KeyError:
-        pass
-
-
-    hist_fig = HistPlot(slider_position, x_data, y_data)
+    hist_fig = HistPlot(month, x_data, y_data)
 
     hist_median = hist_fig.median
 
     hist_fig = hist_fig.fig
 
 
+
+    
     with st.container(key = "wide_chart_section"):
         col1, col2 = st.columns(2, gap="small", vertical_alignment="center")
 
@@ -365,23 +399,32 @@ def main():
             st.plotly_chart(hist_fig, width="stretch", config={"scrollZoom": False}, theme = None)
 
 
+
+    #time.sleep(0.2)
+
+
     with slider_col:
             slider_position = st.slider(
                 "Please select a month to inspect",
-                1, 12, slider_position, step = 1,
+                1, 12, step = 1,
                 key="month_slider"
             )
 
-    localStorage.setItem("slider_pos", int(slider_position))
+    with open("slider_position.txt", "w") as f:
+        f.write(str(st.session_state["month_slider"]))
+
 
     with left_col:
         line_metric = metric_card("Metric", f"On Median, Pluton's proposals peaked at {round(line_maximum, 1)} ($M) after {round(line_maximizer, 1)} months.")
 
     
     with right_col:
-        hist_metric = metric_card("Metric", f"Pluton proposed {round(hist_median, 1)} ($M) on median {slider_position} month(s) after the commencement of arbitration.")
+        hist_metric = metric_card("Metric", f"Pluton proposed {round(hist_median, 1)} ($M) on median {month} month(s) after the commencement of arbitration.")
 
 
     loading_placeholder.empty()
+
+
+
 
 main()

@@ -3,9 +3,7 @@ import base64
 from pathlib import Path
 import textwrap
 from streamlit_js_eval import streamlit_js_eval
-from localStoragePy import localStoragePy
 
-localStorage = localStoragePy('my_app.py')
 
 
 def load_css(file_name):
@@ -57,20 +55,28 @@ def main():
     with st.container(horizontal=True, horizontal_alignment="center", gap="small", key="nav_row"):
 
         if st.button("Overview", key="overview"):
-            localStorage.setItem("page_switch", True)
             st.switch_page("streamlit_app.py")
         
         if st.button("Model description", key="model_description"):
             pass
         
         if st.button("Simulate!", key="simulation"):
-            localStorage.setItem("page_switch", True)
             st.switch_page("pages/page_2.py")
 
         if st.button("Reset", key = "reset"):
+            with open("states.txt", "w") as f:
+                print({"left_slider" : 650, "middle_slider" : 75, "right_slider" : 25.0}, file = f)
+
+            with open("reset_monitor.txt", "w") as f:
+                f.write("False")
+
+            with open("slider_position.txt", "w") as f:
+                f.write(str(7))
+
             st.cache_data.clear()
-            localStorage.clear()
             st.switch_page("streamlit_app.py")
+            streamlit_js_eval(js_expressions="parent.window.location.reload()")
+
 
         with open("memo.pdf", "rb") as f:
             btn = st.download_button(
@@ -82,7 +88,9 @@ def main():
                 key = "download"
             )
 
+
     st.divider()
+
 
     with st.container(key = "formula"):
         st.latex(r"""
