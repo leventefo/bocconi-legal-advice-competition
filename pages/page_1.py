@@ -19,6 +19,13 @@ def image_to_base64(path):
 def main():
 
 
+    with open("last_cleanup.txt", "r") as f:
+        last_cleanup_time = datetime.fromisoformat(f.read().strip())
+
+    if datetime.now() - last_cleanup_time >= timedelta(minutes=1):
+        storage_id_cleanup.main()
+
+
     global localStorage
 
 

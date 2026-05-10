@@ -14,6 +14,9 @@ from streamlit_js_eval import streamlit_js_eval
 from localStoragePy import localStoragePy
 import uuid
 import storage
+import storage_id_cleanup
+import os
+from pathlib import Path
 
 class SingleLineSimualtion:
 
@@ -129,8 +132,16 @@ def save_to_local_storage(to_save_param):
 
 def main():
 
-    global localStorage
+    print(os.listdir(Path.home() / ".config" / "localStoragePy"))
 
+    with open("last_cleanup.txt", "r") as f:
+        last_cleanup_time = datetime.fromisoformat(f.read().strip())
+
+    if datetime.now() - last_cleanup_time >= timedelta(minutes=1):
+        storage_id_cleanup.main()
+
+
+    global localStorage
 
     if "user_storage_id" not in st.session_state:
         user_storage_id = storage.create_storage_id()
