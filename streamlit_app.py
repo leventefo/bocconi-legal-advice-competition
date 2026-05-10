@@ -17,6 +17,7 @@ import storage
 import storage_id_cleanup
 import os
 from pathlib import Path
+import random
 
 class SingleLineSimualtion:
 
@@ -132,8 +133,6 @@ def save_to_local_storage(to_save_param):
 
 def main():
 
-
-
     try: 
         st.write(os.listdir(Path.home() / ".config" / "localStoragePy"))
     
@@ -145,8 +144,8 @@ def main():
         last_cleanup_time = datetime.fromisoformat(f.read().strip())
 
 
+    st.write("before cleanup" + str(random.randit(5)))
 
-    st.write("before cleanup")
     if datetime.now() - last_cleanup_time >= timedelta(minutes=1):
 
         st.write("Will run cleanup")
