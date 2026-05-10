@@ -210,7 +210,7 @@ def main():
         with open("last_cleanup.txt", "w") as f:
             f.write(str(datetime.now().isoformat()))
     elif file.exists():
-        content = f.read_text().strip()
+        content = file.read_text().strip()
 
         if not content:
             with open("last_cleanup.txt", "w") as f:
