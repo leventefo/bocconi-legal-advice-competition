@@ -148,6 +148,8 @@ def main():
 
     st.write(datetime.now() - last_cleanup_time >= timedelta(seconds=10))
 
+    st.write(datetime.now())
+
     if datetime.now() - last_cleanup_time >= timedelta(seconds=10):
 
         st.write("Will run cleanup")
