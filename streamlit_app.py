@@ -137,6 +137,9 @@ def main():
     with open("last_cleanup.txt", "r") as f:
         last_cleanup_time = datetime.fromisoformat(f.read().strip())
 
+
+
+    st.write("before cleanup")
     if datetime.now() - last_cleanup_time >= timedelta(minutes=1):
 
         st.write("Will run cleanup")
