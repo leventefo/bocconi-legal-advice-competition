@@ -24,7 +24,7 @@ def main():
     with open("last_cleanup.txt", "r") as f:
         last_cleanup_time = datetime.fromisoformat(f.read().strip())
 
-    if datetime.now() - last_cleanup_time >= timedelta(minutes=1):
+    if datetime.now() - last_cleanup_time >= timedelta(seconds=10):
         storage_id_cleanup.main()
 
 

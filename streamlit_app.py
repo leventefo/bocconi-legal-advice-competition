@@ -146,7 +146,9 @@ def main():
 
     st.write("before cleanup" + str(random.randint(1, 100)))
 
-    if datetime.now() - last_cleanup_time >= timedelta(minutes=1):
+    st.write(datetime.now() - last_cleanup_time >= timedelta(seconds=10))
+
+    if datetime.now() - last_cleanup_time >= timedelta(seconds=10):
 
         st.write("Will run cleanup")
 
