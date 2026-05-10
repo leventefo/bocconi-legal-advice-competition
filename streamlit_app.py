@@ -132,7 +132,14 @@ def save_to_local_storage(to_save_param):
 
 def main():
 
-    st.write(os.listdir(Path.home() / ".config" / "localStoragePy"))
+
+
+    try: 
+        st.write(os.listdir(Path.home() / ".config" / "localStoragePy"))
+    
+    except FileNotFoundError:
+        with open("last_cleanup.txt", "w") as f:
+            f.write(str(datetime.now().isoformat()))
 
     with open("last_cleanup.txt", "r") as f:
         last_cleanup_time = datetime.fromisoformat(f.read().strip())
