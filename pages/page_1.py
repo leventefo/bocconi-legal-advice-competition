@@ -20,17 +20,12 @@ def image_to_base64(path):
 
 def main():
 
-    file = Path.home() / ".config" / "localStoragePy"
-
-    if not file.exists():
-        with open("last_cleanup.txt", "w") as f:
-            f.write(str(datetime.now().isoformat()))
-    elif file.exists():
-        content = file.read_text().strip()
-
+    with open("last_cleanup.txt", "r+") as f:
+        content = f.readline().strip()
         if not content:
-            with open("last_cleanup.txt", "w") as f:
-                f.write(str(datetime.now().isoformat()))
+            f.seek(0)
+            f.write(str(datetime.now().isoformat()))
+            f.truncate()
 
 
     with open("last_cleanup.txt", "r") as f:
