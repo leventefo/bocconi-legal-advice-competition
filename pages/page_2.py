@@ -16,8 +16,9 @@ import ast
 from streamlit_js_eval import streamlit_js_eval
 import time
 from localStoragePy import localStoragePy
+import storage
 
-localStorage = localStoragePy('my_app.py')
+
 
 class LineSimulation:
 
@@ -200,6 +201,21 @@ def metric_card(title, value, subtitle=None):
 
 
 def main():
+
+
+    global localStorage
+
+
+    if "user_storage_id" not in st.session_state:
+        user_storage_id = storage.create_storage_id()
+        st.session_state["user_storage_id"] = user_storage_id
+    else:
+        user_storage_id = st.session_state["user_storage_id"]
+
+
+    localStorage = localStoragePy(f'my_app_{user_storage_id}.py')
+
+
 
     page_switch =  ast.literal_eval(localStorage.getItem("page_switch"))
 

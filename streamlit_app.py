@@ -12,8 +12,8 @@ import json
 import ast
 from streamlit_js_eval import streamlit_js_eval
 from localStoragePy import localStoragePy
-
-localStorage = localStoragePy('my_app.py')
+import uuid
+import storage
 
 class SingleLineSimualtion:
 
@@ -128,6 +128,18 @@ def save_to_local_storage(to_save_param):
 
 
 def main():
+
+    global localStorage
+
+
+    if "user_storage_id" not in st.session_state:
+        user_storage_id = storage.create_storage_id()
+        st.session_state["user_storage_id"] = user_storage_id
+    else:
+        user_storage_id = st.session_state["user_storage_id"]
+
+
+    localStorage = localStoragePy(f'my_app_{user_storage_id}.py')
 
     st.set_page_config(layout="wide")
 

@@ -4,9 +4,7 @@ from pathlib import Path
 import textwrap
 from streamlit_js_eval import streamlit_js_eval
 from localStoragePy import localStoragePy
-
-localStorage = localStoragePy('my_app.py')
-
+import storage
 
 def load_css(file_name):
     with open(file_name) as f:
@@ -19,6 +17,20 @@ def image_to_base64(path):
 
 
 def main():
+
+
+    global localStorage
+
+
+    if "user_storage_id" not in st.session_state:
+        user_storage_id = storage.create_storage_id()
+        st.session_state["user_storage_id"] = user_storage_id
+    else:
+        user_storage_id = st.session_state["user_storage_id"]
+
+
+    localStorage = localStoragePy(f'my_app_{user_storage_id}.py')
+
 
     st.set_page_config(layout="wide")
 
