@@ -144,7 +144,7 @@ def main():
         last_cleanup_time = datetime.fromisoformat(f.read().strip())
 
 
-    st.write("before cleanup" + str(random.randint(5)))
+    st.write("before cleanup" + str(random.randint(1, 100)))
 
     if datetime.now() - last_cleanup_time >= timedelta(minutes=1):
 
