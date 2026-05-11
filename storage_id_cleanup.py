@@ -8,8 +8,6 @@ import streamlit as st
 
 def main():
 
-    st.write("Cleanup ran")
-
     path = Path.home() / ".config" / "localStoragePy"
 
     for namespace in path.iterdir():
